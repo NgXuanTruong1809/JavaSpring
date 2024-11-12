@@ -37,8 +37,8 @@ public class User {
         return fullName;
     }
 
-    public void setFullname(String fullname) {
-        this.fullName = fullname;
+    public void setFullName(String fullName) {
+        this.fullName = fullName;
     }
 
     public String getAddress() {
