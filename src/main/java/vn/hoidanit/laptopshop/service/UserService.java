@@ -23,9 +23,17 @@ public class UserService {
         return this.userRepository.findByEmail(email);
     }
 
+    public User getUsersById(long id) {
+        return this.userRepository.findById(id);
+    }
+
     public User HandleSaveUser(User user) {
         User xuantruong = this.userRepository.save(user);
         System.out.println(xuantruong);
         return xuantruong;
+    }
+
+    public void deleteAUser(long id) {
+        this.userRepository.deleteById(id);
     }
 }
