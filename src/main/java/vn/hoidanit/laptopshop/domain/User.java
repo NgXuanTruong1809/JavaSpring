@@ -1,9 +1,14 @@
 package vn.hoidanit.laptopshop.domain;
 
+import java.util.List;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 @Entity
@@ -12,13 +17,21 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
+
     private String email;
     private String password;
     private String fullName;
     private String address;
     private String phone;
     private String avatar;
+
     // role ID
+    @ManyToOne
+    @JoinColumn(name = "role_id") // create role_id to join with id in role table
+    private Role role;
+
+    @OneToMany(mappedBy = "user") // used relationship to get data -> user = name of variable in order domain
+    List<Order> orders;
 
     public long getId() {
         return id;
