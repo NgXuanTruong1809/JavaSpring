@@ -14,20 +14,6 @@
                 <title>User Table</title>
                 <link href="/css/styles.css" rel="stylesheet" />
                 <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
-
-                <!-- Jquery for preview img -->
-                <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-                <script>
-                    $(document).ready(() => {
-                        const avatarFile = $("#avatarFile");
-                        avatarFile.change(function (e) {
-                            const imgURL = URL.createObjectURL(e.target.files[0]);
-                            $("#avatarPreview").attr("src", imgURL);
-                            $("#avatarPreview").css({ "display": "block" });
-                        });
-                    });
-                </script>
-
             </head>
 
             <body class="sb-nav-fixed">
@@ -42,26 +28,27 @@
                                     <li class="breadcrumb-item"><a href="/admin">Dashboard</a></li>
                                     <li class="breadcrumb-item active">User</li>
                                 </ol>
-                                <div class="">
+                                <div>
                                     <div class="row">
                                         <div class="col-md-6 col-12 mx-auto">
-                                            <h3>Create a user</h3>
+                                            <h3>Update a user</h3>
                                             <hr />
-                                            <form:form action="/admin/user/create" method="post"
-                                                modelAttribute="newUser" class="row">
-                                                <div class="col-12 col-md-6 mb-3">
+                                            <form:form action="/admin/user/update" method="post"
+                                                modelAttribute="newUser">
+                                                <div class="mb-3" style="display: none;">
+                                                    <label class="form-label">ID:</label>
+                                                    <form:input path="id" type="text" class="form-control" />
+                                                </div>
+                                                <div class="mb-3">
                                                     <label class="form-label">Email:</label>
-                                                    <form:input path="email" type="email" class="form-control" />
+                                                    <form:input path="email" type="email" class="form-control"
+                                                        disabled="true" />
                                                 </div>
-                                                <div class="col-12 col-md-6 mb-3">
-                                                    <label class="form-label">Password:</label>
-                                                    <form:input path="password" type="password" class="form-control" />
-                                                </div>
-                                                <div class="col-12 col-md-6 mb-3">
+                                                <div class="mb-3">
                                                     <label class="form-label">Phone Number:</label>
                                                     <form:input path="phone" type="text" class="form-control" />
                                                 </div>
-                                                <div class="col-12 col-md-6 mb-3">
+                                                <div class="mb-3">
                                                     <label class="form-label">Full Name:</label>
                                                     <form:input path="fullName" type="text" class="form-control" />
                                                 </div>
@@ -69,26 +56,7 @@
                                                     <label class="form-label">Address:</label>
                                                     <form:input path="address" type="text" class="form-control" />
                                                 </div>
-                                                <div class="col-12 col-md-6 mb-3">
-                                                    <label class="form-label">Role:</label>
-                                                    <select class="form-select" aria-label="Default select example">
-                                                        <option value="ADMIN">ADMIN</option>
-                                                        <option value="USER">USER</option>
-                                                    </select>
-                                                </div>
-                                                <div class="col-12 col-md-6 mb-3">
-                                                    <label for="avatarFile" class="form-label">Avatar:</label>
-                                                    <input class="form-control" type="file" id="avatarFile"
-                                                        accept=".png, .jpg, .jpge">
-                                                </div>
-                                                <div class="col-12 mb3">
-                                                    <img alt="avatar preview" style="max-height: 250px; display: none;"
-                                                        id="avatarPreview">
-                                                </div>
-                                                <div class="col-12 mb5">
-                                                    <button type="submit" class="btn btn-primary">Create</button>
-                                                </div>
-
+                                                <button type="submit" class="btn btn-warning">Update</button>
                                             </form:form>
                                         </div>
                                     </div>

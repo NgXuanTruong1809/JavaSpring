@@ -1,4 +1,4 @@
-package vn.hoidanit.laptopshop.controller;
+package vn.hoidanit.laptopshop.controller.admin;
 
 import java.util.List;
 
@@ -38,7 +38,7 @@ public class UserController {
     public String getUserPage(Model model) {
         List<User> users = this.userService.getAllUsers();
         model.addAttribute("users", users);
-        return "admin/user/userview";
+        return "admin/user/show";
     }
 
     @RequestMapping("/admin/user/{id}")
@@ -47,7 +47,7 @@ public class UserController {
         User userdetail = this.userService.getUsersById(id);
         // if userdetail is LIST -> use foreach in jsp file
         model.addAttribute("userdetail", userdetail);
-        return "admin/user/userdetail";
+        return "admin/user/detail";
     }
 
     @RequestMapping("/admin/user/create")
@@ -67,7 +67,7 @@ public class UserController {
     public String getUserUpdatePage(Model model, @PathVariable long id) {
         User curUser = this.userService.getUsersById(id);
         model.addAttribute("newUser", curUser);
-        return "admin/user/userupdate";
+        return "admin/user/update";
     }
 
     @PostMapping("/admin/user/update") // = @RequestMapping(value = "/admin/user/update", method = RequestMethod.POST)
@@ -86,7 +86,7 @@ public class UserController {
     public String getUserDeletePage(Model model, @PathVariable long id) {
         model.addAttribute("id", id);
         model.addAttribute("newUser", new User());
-        return "admin/user/userdelete";
+        return "admin/user/delete";
     }
 
     @PostMapping("/admin/user/delete")
