@@ -48,7 +48,8 @@
                                             <h3>Create a user</h3>
                                             <hr />
                                             <form:form action="/admin/user/create" method="post"
-                                                modelAttribute="newUser" class="row">
+                                                modelAttribute="newUser" class="row" enctype="multipart/form-data">
+                                                <!--enctype="multipart/form-data" for post file to server -->
                                                 <div class="col-12 col-md-6 mb-3">
                                                     <label class="form-label">Email:</label>
                                                     <form:input path="email" type="email" class="form-control" />
@@ -71,15 +72,16 @@
                                                 </div>
                                                 <div class="col-12 col-md-6 mb-3">
                                                     <label class="form-label">Role:</label>
-                                                    <select class="form-select" aria-label="Default select example">
-                                                        <option value="ADMIN">ADMIN</option>
-                                                        <option value="USER">USER</option>
-                                                    </select>
+                                                    <from:select path="role.name" class="form-select"
+                                                        aria-label="Default select example">
+                                                        <from:option value="ADMIN">ADMIN</from:option>
+                                                        <from:option value="USER">USER</from:option>
+                                                    </from:select>
                                                 </div>
                                                 <div class="col-12 col-md-6 mb-3">
                                                     <label for="avatarFile" class="form-label">Avatar:</label>
                                                     <input class="form-control" type="file" id="avatarFile"
-                                                        accept=".png, .jpg, .jpge">
+                                                        accept=".png, .jpg, .jpge" name="=hoidanitFile" />
                                                 </div>
                                                 <div class="col-12 mb3">
                                                     <img alt="avatar preview" style="max-height: 250px; display: none;"
