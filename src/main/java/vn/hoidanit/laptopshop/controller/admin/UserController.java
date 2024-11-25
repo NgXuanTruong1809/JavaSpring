@@ -1,11 +1,9 @@
 package vn.hoidanit.laptopshop.controller.admin;
 
-import java.io.BufferedOutputStream;
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
 import java.util.List;
 
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -17,9 +15,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
-import jakarta.servlet.ServletContext;
 import vn.hoidanit.laptopshop.domain.User;
-import vn.hoidanit.laptopshop.repository.UserRepository;
+import vn.hoidanit.laptopshop.service.UploadService;
 import vn.hoidanit.laptopshop.service.UserService;
 
 @Controller
@@ -27,11 +24,13 @@ public class UserController {
 
     // DI : dependency injection
     private final UserService userService;
-    private final ServletContext servletContext;
+    private final UploadService uploadService;
+    private final PasswordEncoder bCryptPasswordEncoder;
 
-    public UserController(UserService userService, ServletContext servletContext) {
+    public UserController(UserService userService, UploadService uploadService, PasswordEncoder bCryptPasswordEncoder) {
         this.userService = userService;
-        this.servletContext = servletContext;
+        this.uploadService = uploadService;
+        this.bCryptPasswordEncoder = bCryptPasswordEncoder;
     }
 
     @RequestMapping("/")
@@ -67,31 +66,13 @@ public class UserController {
 
     @RequestMapping(value = "/admin/user/create", method = RequestMethod.POST)
     public String getUserCreateForm(@ModelAttribute("newUser") User hoidanit,
-            @RequestParam("hoidanitFile") MultipartFile file) {
-
-        try {
-            byte[] bytes;
-            bytes = file.getBytes();
-            // relative path : absolute path
-            String rootPath = this.servletContext.getRealPath("/resources/images");
-            // File.separator = "/"
-            File dir = new File(rootPath + File.separator + "avatar");
-            if (!dir.exists())
-                dir.mkdirs();
-
-            // Create the file on server
-            File serverFile = new File(dir.getAbsolutePath() + File.separator +
-                    +System.currentTimeMillis() + "-" + file.getOriginalFilename());
-
-            BufferedOutputStream stream = new BufferedOutputStream(
-                    new FileOutputStream(serverFile));
-            stream.write(bytes);
-            stream.close();
-        } catch (IOException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
-        this.userService.HandleSaveUser(hoidanit);
+            @RequestParam("uploadFile") MultipartFile file) {
+        String filename = this.uploadService.handleSaveUploadFile(file, "avatar");
+        String hashPassword = this.bCryptPasswordEncoder.encode(hoidanit.getPassword());
+        hoidanit.setAvatar(filename);
+        hoidanit.setPassword(hashPassword);
+        hoidanit.setRole(this.userService.getRoleByName(hoidanit.getRole().getName()));
+        this.userService.handleSaveUser(hoidanit);
         // if return /admin/user -> data null
         return "redirect:/admin/user";
     }
@@ -110,7 +91,7 @@ public class UserController {
             curUser.setAddress(user.getAddress());
             curUser.setPhone(user.getPhone());
             curUser.setFullName(user.getFullName());
-            this.userService.HandleSaveUser(curUser);
+            this.userService.handleSaveUser(curUser);
         }
         return "redirect:/admin/user";
     }

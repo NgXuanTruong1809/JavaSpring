@@ -72,16 +72,16 @@
                                                 </div>
                                                 <div class="col-12 col-md-6 mb-3">
                                                     <label class="form-label">Role:</label>
-                                                    <from:select path="role.name" class="form-select"
+                                                    <form:select path="role.name" class="form-select"
                                                         aria-label="Default select example">
-                                                        <from:option value="ADMIN">ADMIN</from:option>
-                                                        <from:option value="USER">USER</from:option>
-                                                    </from:select>
+                                                        <form:option value="ADMIN">ADMIN</form:option>
+                                                        <form:option value="USER">USER</form:option>
+                                                    </form:select>
                                                 </div>
                                                 <div class="col-12 col-md-6 mb-3">
                                                     <label for="avatarFile" class="form-label">Avatar:</label>
                                                     <input class="form-control" type="file" id="avatarFile"
-                                                        accept=".png, .jpg, .jpge" name="=hoidanitFile" />
+                                                        accept=".png, .jpg, .jpge" name="uploadFile" />
                                                 </div>
                                                 <div class="col-12 mb3">
                                                     <img alt="avatar preview" style="max-height: 250px; display: none;"
