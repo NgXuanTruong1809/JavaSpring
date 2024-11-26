@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -31,15 +30,6 @@ public class UserController {
         this.userService = userService;
         this.uploadService = uploadService;
         this.bCryptPasswordEncoder = bCryptPasswordEncoder;
-    }
-
-    @RequestMapping("/")
-    public String getHomePage(Model model) {
-        List<User> arrUsers = this.userService.getAllUsersByEmail("anhdeptrai1809@gmail.com");
-        System.out.println(arrUsers);
-        model.addAttribute("eric", "test");
-        model.addAttribute("hoidanit", "from controller with model");
-        return "hello";
     }
 
     @RequestMapping("/admin/user")
@@ -64,7 +54,7 @@ public class UserController {
         return "admin/user/create";
     }
 
-    @RequestMapping(value = "/admin/user/create", method = RequestMethod.POST)
+    @PostMapping("/admin/user/create")
     public String getUserCreateForm(@ModelAttribute("newUser") User hoidanit,
             @RequestParam("uploadFile") MultipartFile file) {
         String filename = this.uploadService.handleSaveUploadFile(file, "avatar");
@@ -77,7 +67,7 @@ public class UserController {
         return "redirect:/admin/user";
     }
 
-    @RequestMapping("/admin/user/update/{id}")
+    @GetMapping("/admin/user/update/{id}")
     public String getUserUpdatePage(Model model, @PathVariable long id) {
         User curUser = this.userService.getUsersById(id);
         model.addAttribute("newUser", curUser);
