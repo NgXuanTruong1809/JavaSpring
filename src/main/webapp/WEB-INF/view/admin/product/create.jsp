@@ -11,7 +11,7 @@
                 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
                 <meta name="description" content="Hỏi Dân IT - Dự án laptopshop" />
                 <meta name="author" content="Hỏi Dân IT" />
-                <title>User Table</title>
+                <title>Product Table</title>
                 <link href="/css/styles.css" rel="stylesheet" />
                 <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
 
@@ -50,27 +50,50 @@
                                             <form:form action="/admin/product/create" method="post"
                                                 modelAttribute="newProduct" class="row" enctype="multipart/form-data">
                                                 <!--enctype="multipart/form-data" for post file to server -->
+                                                <c:set var="errorName">
+                                                    <form:errors path="name" />
+                                                </c:set>
+                                                <c:set var="errorPrice">
+                                                    <form:errors path="price" />
+                                                </c:set>
+                                                <c:set var="errorDetailDesc">
+                                                    <form:errors path="detailDesc" />
+                                                </c:set>
+                                                <c:set var="errorShortDesc">
+                                                    <form:errors path="shortDesc" />
+                                                </c:set>
+                                                <c:set var="errorQuantity">
+                                                    <form:errors path="quantity" />
+                                                </c:set>
                                                 <div class="col-12 col-md-6 mb-3">
                                                     <label class="form-label">Name:</label>
-                                                    <form:input path="name" type="text" class="form-control" />
+                                                    <form:input path="name" type="text"
+                                                        class="form-control ${not empty errorName?'is-invalid':''}" />
+                                                    <form:errors path="name" cssClass="invalid-feedback" />
                                                 </div>
                                                 <div class="col-12 col-md-6 mb-3">
                                                     <label class="form-label">Price:</label>
-                                                    <form:input path="price" type="number" step="0.1" value="0.0"
-                                                        class="form-control" />
+                                                    <form:input path="price" type="number"
+                                                        class="form-control ${not empty errorPrice?'is-invalid':''}" />
+                                                    <form:errors path="price" cssClass="invalid-feedback" />
                                                 </div>
                                                 <div class="col-12 col-md-12 mb-3">
                                                     <label class="form-label">Detail description:</label>
-                                                    <form:textarea path="detailDesc" type="text" class="form-control" />
+                                                    <form:textarea path="detailDesc" type="text"
+                                                        class="form-control ${not empty errorDetailDesc?'is-invalid':''}" />
+                                                    <form:errors path="detailDesc" cssClass="invalid-feedback" />
                                                 </div>
                                                 <div class="col-12 col-md-6 mb-3">
                                                     <label class="form-label">Short description:</label>
-                                                    <form:input path="shortDesc" type="text" class="form-control" />
+                                                    <form:input path="shortDesc" type="text"
+                                                        class="form-control ${not empty errorShortDesc?'is-invalid':''}" />
+                                                    <form:errors path="shortDesc" cssClass="invalid-feedback" />
                                                 </div>
                                                 <div class="col-12 col-md-6 mb-3">
                                                     <label class="form-label">Quantity:</label>
-                                                    <form:input path="quantity" type="number" class="form-control"
-                                                        value="0" />
+                                                    <form:input path="quantity" type="number"
+                                                        class="form-control ${not empty errorQuantity?'is-invalid':''}" />
+                                                    <form:errors path="quantity" cssClass="invalid-feedback" />
                                                 </div>
                                                 <div class="col-12 col-md-6 mb-3">
                                                     <label class="form-label">Factory:</label>

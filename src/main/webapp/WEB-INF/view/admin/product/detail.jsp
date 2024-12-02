@@ -22,27 +22,31 @@
                 <div id="layoutSidenav_content">
                     <main>
                         <div class="container-fluid px-4">
-                            <h1 class="mt-4">Manage Users</h1>
+                            <h1 class="mt-4">Manage Product</h1>
                             <ol class="breadcrumb mb-4">
                                 <li class="breadcrumb-item"><a href="/admin">Dashboard</a></li>
-                                <li class="breadcrumb-item active">User</li>
+                                <li class="breadcrumb-item active">Product</li>
                             </ol>
                             <div>
                                 <div class="row">
                                     <div class="col-12 mx-auto">
                                         <div class="d-flex justify-content-between">
-                                            <h3>User detail with id ${id}</h3>
+                                            <h3>Product detail with id ${id}</h3>
                                         </div>
                                         <hr>
-                                        <div class="card">
+                                        <div class="col-12 mb3">
+                                            <img style="max-height: 250px;"
+                                                src="/images/product/${productdetail.image}" />
+                                        </div>
+                                        <div class=" card">
                                             <div class="card-header">
-                                                User Information
+                                                Product Information
                                             </div>
                                             <ul class="list-group list-group-flush">
-                                                <li class="list-group-item">ID: ${userdetail.id}</li>
-                                                <li class="list-group-item">Email: ${userdetail.email}</li>
-                                                <li class="list-group-item">Full Name: ${userdetail.fullName}</li>
-                                                <li class="list-group-item">Address: ${userdetail.address}</li>
+                                                <li class="list-group-item">ID: ${productdetail.id}</li>
+                                                <li class="list-group-item">Name: ${productdetail.name}</li>
+                                                <li class="list-group-item">Price: ${productdetail.price}</li>
+                                                <li class="list-group-item">Quantity: ${productdetail.quantity}</li>
                                             </ul>
                                         </div>
                                         <a href="/admin/user" class="btn btn-dark my-2">Back</a>

@@ -6,6 +6,8 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -14,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
+import jakarta.validation.Valid;
 import vn.hoidanit.laptopshop.domain.User;
 import vn.hoidanit.laptopshop.service.UploadService;
 import vn.hoidanit.laptopshop.service.UserService;
@@ -39,15 +42,6 @@ public class UserController {
         return "admin/user/show";
     }
 
-    @RequestMapping("/admin/user/{id}")
-    public String getUserDetailPage(Model model, @PathVariable long id) {
-        model.addAttribute("id", id);
-        User userdetail = this.userService.getUsersById(id);
-        // if userdetail is LIST -> use foreach in jsp file
-        model.addAttribute("userdetail", userdetail);
-        return "admin/user/detail";
-    }
-
     @RequestMapping("/admin/user/create")
     public String getUserCreatePage(Model model) {
         model.addAttribute("newUser", new User());
@@ -55,8 +49,18 @@ public class UserController {
     }
 
     @PostMapping("/admin/user/create")
-    public String getUserCreateForm(@ModelAttribute("newUser") User hoidanit,
+    public String postUserCreateForm(@ModelAttribute("newUser") @Valid User hoidanit,
+            BindingResult newUserBindingResult,
             @RequestParam("uploadFile") MultipartFile file) {
+        // validate
+        List<FieldError> errors = newUserBindingResult.getFieldErrors();
+        for (FieldError error : errors) {
+            System.out.println(error.getField() + " - " + error.getDefaultMessage());
+        }
+        if (newUserBindingResult.hasErrors()) {
+            return "/admin/user/create";
+        }
+        //
         String filename = this.uploadService.handleSaveUploadFile(file, "avatar");
         String hashPassword = this.bCryptPasswordEncoder.encode(hoidanit.getPassword());
         hoidanit.setAvatar(filename);
@@ -67,6 +71,15 @@ public class UserController {
         return "redirect:/admin/user";
     }
 
+    @RequestMapping("/admin/user/{id}")
+    public String getUserDetailPage(Model model, @PathVariable long id) {
+        model.addAttribute("id", id);
+        User userdetail = this.userService.getUsersById(id);
+        // if userdetail is LIST -> use foreach in jsp file
+        model.addAttribute("userdetail", userdetail);
+        return "admin/user/detail";
+    }
+
     @GetMapping("/admin/user/update/{id}")
     public String getUserUpdatePage(Model model, @PathVariable long id) {
         User curUser = this.userService.getUsersById(id);
@@ -75,7 +88,17 @@ public class UserController {
     }
 
     @PostMapping("/admin/user/update") // = @RequestMapping(value = "/admin/user/update", method = RequestMethod.POST)
-    public String postUserUpdate(Model model, @ModelAttribute("newUser") User user) {
+    public String postUserUpdate(Model model, @ModelAttribute("newUser") @Valid User user,
+            BindingResult newUserBindingResult) {
+
+        List<FieldError> errors = newUserBindingResult.getFieldErrors();
+        for (FieldError error : errors) {
+            System.out.println(error.getField() + " - " + error.getDefaultMessage());
+        }
+        if (newUserBindingResult.hasErrors()) {
+            return "redirect:/admin/user/update/" + user.getId();
+        }
+
         User curUser = this.userService.getUsersById(user.getId());
         if (curUser != null) {
             curUser.setAddress(user.getAddress());

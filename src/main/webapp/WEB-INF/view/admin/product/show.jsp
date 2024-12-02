@@ -11,7 +11,7 @@
                 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
                 <meta name="description" content="Hỏi Dân IT - Dự án laptopshop" />
                 <meta name="author" content="Hỏi Dân IT" />
-                <title>Dashboard - Admin</title>
+                <title>Dashboard - Product</title>
                 <link href="/css/styles.css" rel="stylesheet" />
                 <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
             </head>
@@ -52,15 +52,15 @@
                                                         <c:forEach var="product" items="${products}">
                                                             <tr>
                                                                 <th scope="row">${product.id}</th>
-                                                                <td>${product.email}</td>
-                                                                <td>${product.fullName}</td>
-                                                                <td>${product.role.name}</td>
+                                                                <td>${product.name}</td>
+                                                                <td>${product.price}</td>
+                                                                <td>${product.factory}</td>
                                                                 <td>
-                                                                    <a href="/admin/product/${user.id}"
+                                                                    <a href="/admin/product/${product.id}"
                                                                         class="btn btn-success">View</a>
-                                                                    <a href="/admin/product/update/${user.id}"
+                                                                    <a href="/admin/product/update/${product.id}"
                                                                         class="btn btn-warning mx-2">Update</a>
-                                                                    <a href="/admin/product/delete/${user.id}"
+                                                                    <a href="/admin/product/delete/${product.id}"
                                                                         class="btn btn-danger">Delete</a>
                                                                 </td>
                                                             </tr>

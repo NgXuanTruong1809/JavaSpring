@@ -20,6 +20,11 @@ public class UploadService {
     }
 
     public String handleSaveUploadFile(MultipartFile file, String targetFile) {
+        // dont upload file
+        if (file.isEmpty()) {
+            return "";
+        }
+        //
         String fileNamePath = "";
         try {
             byte[] bytes;

@@ -11,9 +11,30 @@
                 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
                 <meta name="description" content="Hỏi Dân IT - Dự án laptopshop" />
                 <meta name="author" content="Hỏi Dân IT" />
-                <title>User Table</title>
+                <title>Product Table</title>
                 <link href="/css/styles.css" rel="stylesheet" />
                 <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
+
+                <!-- Jquery for preview img -->
+                <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+                <script>
+                    $(document).ready(() => {
+                        const avatarFile = $("#productFile");
+                        const orgImage = "${newProduct.image}";
+                        if (orgImage) {
+                            const imgURLOrigin = "/images/product/" + orgImage
+                            $("#productPreview").attr("src", imgURLOrigin);
+                            $("#productPreview").css({ "display": "block" });
+                        }
+
+                        avatarFile.change(function (e) {
+                            const imgURL = URL.createObjectURL(e.target.files[0]);
+                            $("#productPreview").attr("src", imgURL);
+                            $("#productPreview").css({ "display": "block" });
+                        });
+                    });
+                </script>
+
             </head>
 
             <body class="sb-nav-fixed">
@@ -23,40 +44,104 @@
                     <div id="layoutSidenav_content">
                         <main>
                             <div class="container-fluid px-4">
-                                <h1 class="mt-4">Manage Users</h1>
+                                <h1 class="mt-4">Manage Products</h1>
                                 <ol class="breadcrumb mb-4">
                                     <li class="breadcrumb-item"><a href="/admin">Dashboard</a></li>
-                                    <li class="breadcrumb-item active">User</li>
+                                    <li class="breadcrumb-item active">Products</li>
                                 </ol>
-                                <div>
+                                <div class="">
                                     <div class="row">
                                         <div class="col-md-6 col-12 mx-auto">
-                                            <h3>Update a user</h3>
+                                            <h3>Update a product</h3>
                                             <hr />
-                                            <form:form action="/admin/user/update" method="post"
-                                                modelAttribute="newUser">
+                                            <form:form action="/admin/product/update" method="post"
+                                                modelAttribute="newProduct" class="row" enctype="multipart/form-data">
+                                                <!--enctype="multipart/form-data" for post file to server -->
+                                                <c:set var="errorName">
+                                                    <form:errors path="name" />
+                                                </c:set>
+                                                <c:set var="errorPrice">
+                                                    <form:errors path="price" />
+                                                </c:set>
+                                                <c:set var="errorDetailDesc">
+                                                    <form:errors path="detailDesc" />
+                                                </c:set>
+                                                <c:set var="errorShortDesc">
+                                                    <form:errors path="shortDesc" />
+                                                </c:set>
+                                                <c:set var="errorQuantity">
+                                                    <form:errors path="quantity" />
+                                                </c:set>
                                                 <div class="mb-3" style="display: none;">
                                                     <label class="form-label">ID:</label>
                                                     <form:input path="id" type="text" class="form-control" />
                                                 </div>
-                                                <div class="mb-3">
-                                                    <label class="form-label">Email:</label>
-                                                    <form:input path="email" type="email" class="form-control"
-                                                        disabled="true" />
+                                                <div class="col-12 col-md-6 mb-3">
+                                                    <label class="form-label">Name:</label>
+                                                    <form:input path="name" type="text"
+                                                        class="form-control ${not empty errorName?'is-invalid':''}" />
+                                                    <form:errors path="name" cssClass="invalid-feedback" />
                                                 </div>
-                                                <div class="mb-3">
-                                                    <label class="form-label">Phone Number:</label>
-                                                    <form:input path="phone" type="text" class="form-control" />
+                                                <div class="col-12 col-md-6 mb-3">
+                                                    <label class="form-label">Price:</label>
+                                                    <form:input path="price" type="number"
+                                                        class="form-control ${not empty errorPrice?'is-invalid':''}" />
+                                                    <form:errors path="price" cssClass="invalid-feedback" />
                                                 </div>
-                                                <div class="mb-3">
-                                                    <label class="form-label">Full Name:</label>
-                                                    <form:input path="fullName" type="text" class="form-control" />
+                                                <div class="col-12 col-md-12 mb-3">
+                                                    <label class="form-label">Detail description:</label>
+                                                    <form:textarea path="detailDesc" type="text"
+                                                        class="form-control ${not empty errorDetailDesc?'is-invalid':''}" />
+                                                    <form:errors path="detailDesc" cssClass="invalid-feedback" />
                                                 </div>
-                                                <div class="mb-3">
-                                                    <label class="form-label">Address:</label>
-                                                    <form:input path="address" type="text" class="form-control" />
+                                                <div class="col-12 col-md-6 mb-3">
+                                                    <label class="form-label">Short description:</label>
+                                                    <form:input path="shortDesc" type="text"
+                                                        class="form-control ${not empty errorShortDesc?'is-invalid':''}" />
+                                                    <form:errors path="shortDesc" cssClass="invalid-feedback" />
                                                 </div>
-                                                <button type="submit" class="btn btn-warning">Update</button>
+                                                <div class="col-12 col-md-6 mb-3">
+                                                    <label class="form-label">Quantity:</label>
+                                                    <form:input path="quantity" type="number"
+                                                        class="form-control ${not empty errorQuantity?'is-invalid':''}" />
+                                                    <form:errors path="quantity" cssClass="invalid-feedback" />
+                                                </div>
+                                                <div class="col-12 col-md-6 mb-3">
+                                                    <label class="form-label">Factory:</label>
+                                                    <form:select path="factory" class="form-select"
+                                                        aria-label="Default select example">
+                                                        <form:option value="Apple">Apple (MacBook)</form:option>
+                                                        <form:option value="Asus">Asus</form:option>
+                                                        <form:option value="Lenovo">Lenovo</form:option>
+                                                        <form:option value="Dell">Dell</form:option>
+                                                        <form:option value="LG">LG</form:option>
+                                                        <form:option value="Acer">Acer</form:option>
+                                                    </form:select>
+                                                </div>
+                                                <div class="col-12 col-md-6 mb-3">
+                                                    <label class="form-label">Target:</label>
+                                                    <form:select path="target" class="form-select"
+                                                        aria-label="Default select example">
+                                                        <form:option value="Gaming">Gaming</form:option>
+                                                        <form:option value="Study">Sinh viên - Văn phòng</form:option>
+                                                        <form:option value="DesignWork">Thiết kế đồ họa</form:option>
+                                                        <form:option value="Weight">Mỏng nhẹ</form:option>
+                                                        <form:option value="Business">Doanh nhân</form:option>
+                                                    </form:select>
+                                                </div>
+                                                <div class="col-12 col-md-6 mb-3">
+                                                    <label for="avatarFile" class="form-label">Product image:</label>
+                                                    <input class="form-control" type="file" id="productFile"
+                                                        accept=".png, .jpg, .jpge" name="uploadFile" />
+                                                </div>
+                                                <div class="col-12 mb3">
+                                                    <img alt="product preview" style="max-height: 250px; display: none;"
+                                                        id="productPreview">
+                                                </div>
+                                                <div class="col-12 mb5">
+                                                    <button type="submit" class="btn btn-primary">Update</button>
+                                                </div>
+
                                             </form:form>
                                         </div>
                                     </div>
