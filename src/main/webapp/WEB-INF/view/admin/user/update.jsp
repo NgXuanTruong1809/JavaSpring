@@ -39,10 +39,13 @@
                                                     <label class="form-label">ID:</label>
                                                     <form:input path="id" type="text" class="form-control" />
                                                 </div>
+                                                <div class="mb-3" style="display: none;">
+                                                    <label class="form-label">Password:</label>
+                                                    <form:input path="password" type="password" class="form-control" />
+                                                </div>
                                                 <div class="mb-3">
                                                     <label class="form-label">Email:</label>
-                                                    <form:input path="email" type="email" class="form-control"
-                                                        disabled="true" />
+                                                    <form:input path="email" type="email" class="form-control" />
                                                 </div>
                                                 <div class="mb-3">
                                                     <label class="form-label">Phone Number:</label>

@@ -84,11 +84,18 @@ public class ProductController {
     }
 
     @PostMapping("/admin/product/update")
-    public String postProductUpdatePage(@ModelAttribute("newProduct") Product newProduct,
+    public String postProductUpdatePage(@ModelAttribute("newProduct") @Valid Product newProduct,
             BindingResult newProductBindingResult,
             @RequestParam("uploadFile") MultipartFile file) {
-
+        // VALIDATE
+        List<FieldError> errors = newProductBindingResult.getFieldErrors();
+        for (FieldError error : errors) {
+            System.out.println(error.getField() + " - " + error.getDefaultMessage());
+        }
         if (newProductBindingResult.hasErrors()) {
+            String imgOrigin = this.productService.getImageById(newProduct.getId());
+            newProduct.setImage(imgOrigin);
+
             return "admin/product/update";
         }
 
@@ -111,4 +118,16 @@ public class ProductController {
         return "redirect:/admin/product";
     }
 
+    @GetMapping("/admin/product/delete/{id}")
+    public String getProductDeletePage(Model model, @PathVariable long id) {
+        model.addAttribute("id", id);
+        model.addAttribute("newProduct", new Product());
+        return "admin/product/delete";
+    }
+
+    @PostMapping("/admin/product/delete")
+    public String postProductDeletePage(Model model, @ModelAttribute("newProduct") Product newProduct) {
+        this.productService.deleteAProduct(newProduct.getId());
+        return "redirect:/admin/product";
+    }
 }

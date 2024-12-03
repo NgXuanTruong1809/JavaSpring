@@ -26,4 +26,13 @@ public class ProductService {
     public Product getProductById(long id) {
         return this.productRepository.findById(id);
     }
+
+    public String getImageById(long id) {
+        Product product = getProductById(id);
+        return product.getImage();
+    }
+
+    public void deleteAProduct(long id) {
+        this.productRepository.deleteById(id);
+    }
 }

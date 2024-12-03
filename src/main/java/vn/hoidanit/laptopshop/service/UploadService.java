@@ -38,8 +38,7 @@ public class UploadService {
 
             fileNamePath = System.currentTimeMillis() + "-" + file.getOriginalFilename();
             // Create the file on server
-            File serverFile = new File(dir.getAbsolutePath() + File.separator +
-                    +System.currentTimeMillis() + "-" + file.getOriginalFilename());
+            File serverFile = new File(dir.getAbsolutePath() + File.separator + fileNamePath);
 
             BufferedOutputStream stream = new BufferedOutputStream(
                     new FileOutputStream(serverFile));

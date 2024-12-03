@@ -58,7 +58,7 @@ public class UserController {
             System.out.println(error.getField() + " - " + error.getDefaultMessage());
         }
         if (newUserBindingResult.hasErrors()) {
-            return "/admin/user/create";
+            return "admin/user/create";
         }
         //
         String filename = this.uploadService.handleSaveUploadFile(file, "avatar");
@@ -96,7 +96,7 @@ public class UserController {
             System.out.println(error.getField() + " - " + error.getDefaultMessage());
         }
         if (newUserBindingResult.hasErrors()) {
-            return "redirect:/admin/user/update/" + user.getId();
+            return "admin/user/update";
         }
 
         User curUser = this.userService.getUsersById(user.getId());

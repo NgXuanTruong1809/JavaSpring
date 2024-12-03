@@ -49,7 +49,7 @@
                                                 <li class="list-group-item">Quantity: ${productdetail.quantity}</li>
                                             </ul>
                                         </div>
-                                        <a href="/admin/user" class="btn btn-dark my-2">Back</a>
+                                        <a href="/admin/product" class="btn btn-dark my-2">Back</a>
                                     </div>
                                 </div>
                             </div>
