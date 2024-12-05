@@ -1,6 +1,10 @@
 package vn.hoidanit.laptopshop.domain.dto;
 
+import vn.hoidanit.laptopshop.service.validator.RegisterChecked;
+
+@RegisterChecked
 public class RegisterDTO {
+    // DTO data transfer object
     private String firstName;
     private String lastName;
     private String email;

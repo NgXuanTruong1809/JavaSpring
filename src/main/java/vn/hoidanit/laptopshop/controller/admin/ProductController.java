@@ -50,10 +50,10 @@ public class ProductController {
             BindingResult newProductBindingResult,
             @RequestParam("uploadFile") MultipartFile file) {
         // validate
-        List<FieldError> errors = newProductBindingResult.getFieldErrors();
-        for (FieldError error : errors) {
-            System.out.println(error.getField() + " - " + error.getDefaultMessage());
-        }
+        // List<FieldError> errors = newProductBindingResult.getFieldErrors();
+        // for (FieldError error : errors) {
+        // System.out.println(error.getField() + " - " + error.getDefaultMessage());
+        // }
         if (newProductBindingResult.hasErrors()) {
             return "admin/product/create";
         }
@@ -88,10 +88,10 @@ public class ProductController {
             BindingResult newProductBindingResult,
             @RequestParam("uploadFile") MultipartFile file) {
         // VALIDATE
-        List<FieldError> errors = newProductBindingResult.getFieldErrors();
-        for (FieldError error : errors) {
-            System.out.println(error.getField() + " - " + error.getDefaultMessage());
-        }
+        // List<FieldError> errors = newProductBindingResult.getFieldErrors();
+        // for (FieldError error : errors) {
+        // System.out.println(error.getField() + " - " + error.getDefaultMessage());
+        // }
         if (newProductBindingResult.hasErrors()) {
             String imgOrigin = this.productService.getImageById(newProduct.getId());
             newProduct.setImage(imgOrigin);

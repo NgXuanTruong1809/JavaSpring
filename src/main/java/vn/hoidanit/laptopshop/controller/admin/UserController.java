@@ -91,10 +91,10 @@ public class UserController {
     public String postUserUpdate(Model model, @ModelAttribute("newUser") @Valid User user,
             BindingResult newUserBindingResult) {
 
-        List<FieldError> errors = newUserBindingResult.getFieldErrors();
-        for (FieldError error : errors) {
-            System.out.println(error.getField() + " - " + error.getDefaultMessage());
-        }
+        // List<FieldError> errors = newUserBindingResult.getFieldErrors();
+        // for (FieldError error : errors) {
+        // System.out.println(error.getField() + " - " + error.getDefaultMessage());
+        // }
         if (newUserBindingResult.hasErrors()) {
             return "admin/user/update";
         }
