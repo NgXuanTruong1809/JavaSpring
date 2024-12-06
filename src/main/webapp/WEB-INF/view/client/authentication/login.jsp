@@ -26,13 +26,13 @@
                                             <div class="card-body">
                                                 <form:form action="/login" method="post" modelAttribute="userLogin">
                                                     <div class="form-floating mb-3">
-                                                        <form:input path="email" class="form-control" id="inputEmail"
-                                                            type="email" placeholder="name@example.com" />
+                                                        <form:input name="username" class="form-control" type="email"
+                                                            placeholder="name@example.com" />
                                                         <label for="inputEmail">Email address</label>
                                                     </div>
                                                     <div class="form-floating mb-3">
-                                                        <form:input path="password" class="form-control"
-                                                            id="inputPassword" type="password" placeholder="Password" />
+                                                        <form:input name="password" class="form-control" type="password"
+                                                            placeholder="Password" />
                                                         <label for="inputPassword">Password</label>
                                                     </div>
                                                     <div class="mt-4 mb-0">

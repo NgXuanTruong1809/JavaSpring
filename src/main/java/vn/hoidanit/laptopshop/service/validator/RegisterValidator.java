@@ -5,6 +5,7 @@ import jakarta.validation.ConstraintValidatorContext;
 import vn.hoidanit.laptopshop.domain.dto.RegisterDTO;
 import vn.hoidanit.laptopshop.service.UserService;
 
+//Add @Service to get dependency injection  
 public class RegisterValidator implements ConstraintValidator<RegisterChecked, RegisterDTO> {
 
     private final UserService userService;

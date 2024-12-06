@@ -4,9 +4,9 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 //import org.springframework.context.ConfigurableApplicationContext;
 
-// @SpringBootApplication // Annotation (decorator)
 // include >< exclude 
-@SpringBootApplication(exclude = org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration.class)
+//@SpringBootApplication(exclude = org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration.class)
+@SpringBootApplication // Annotation (decorator)
 public class LaptopshopApplication {
 
 	public static void main(String[] args) {
