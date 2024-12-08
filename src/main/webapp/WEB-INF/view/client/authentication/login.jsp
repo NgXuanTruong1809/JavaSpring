@@ -24,24 +24,34 @@
                                                 <h3 class="text-center font-weight-light my-4">Login</h3>
                                             </div>
                                             <div class="card-body">
-                                                <form:form action="/login" method="post" modelAttribute="userLogin">
+                                                <form action="/login" method="post">
+                                                    <c:if test="${param.error != null}">
+                                                        <div class="my-2" style="color: red;">Email hoặc tài khoản không
+                                                            hợp lệ.
+                                                        </div>
+                                                    </c:if>
+
                                                     <div class="form-floating mb-3">
-                                                        <form:input name="username" class="form-control" type="email"
+                                                        <input name="username" class="form-control" type="email"
                                                             placeholder="name@example.com" />
                                                         <label for="inputEmail">Email address</label>
                                                     </div>
                                                     <div class="form-floating mb-3">
-                                                        <form:input name="password" class="form-control" type="password"
+                                                        <input name="password" class="form-control" type="password"
                                                             placeholder="Password" />
                                                         <label for="inputPassword">Password</label>
                                                     </div>
+
+                                                    <input type="hidden" name="${_csrf.parameterName}"
+                                                        value="${_csrf.token}" />
+
                                                     <div class="mt-4 mb-0">
                                                         <div class="d-grid">
                                                             <button class="btn btn-primary btn-block"
                                                                 type="submit">Login</button>
                                                         </div>
                                                     </div>
-                                                </form:form>
+                                                </form>
                                             </div>
                                             <div class="card-footer text-center py-3">
                                                 <div class="small"><a href="/register">Need an account? Sign up!</a>

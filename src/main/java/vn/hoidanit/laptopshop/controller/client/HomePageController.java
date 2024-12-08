@@ -63,8 +63,7 @@ public class HomePageController {
     }
 
     @GetMapping("/login")
-    public String getLoginPage(Model model) {
-        model.addAttribute("userLogin", new User());
+    public String getLoginPage() {
         return "client/authentication/login";
     }
 }
