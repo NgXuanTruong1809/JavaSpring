@@ -9,6 +9,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 
 import jakarta.servlet.DispatcherType;
 import vn.hoidanit.laptopshop.service.CustomUserDetailsService;
@@ -42,6 +43,11 @@ public class SecurityConfiguration {
         return authProvider;
     }
 
+    @Bean
+    public AuthenticationSuccessHandler customSuccessHandler() {
+        return new CustomSuccessHandler();
+    }
+
     // set up our login form (default -> local:8080/login)
     @Bean
     SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
@@ -53,13 +59,21 @@ public class SecurityConfiguration {
                                                         // service) (default spring security block this way)
                         .permitAll()
 
-                        .requestMatchers("/", "/login", "/client/**", "/css/**", "/js/**", "/images/**").permitAll()
+                        .requestMatchers("/", "/product/**",
+                                "/login", "/client/**", "/css/**", "/js/**", "/images/**")
+                        .permitAll()
+
+                        .requestMatchers("/admin/**").hasRole("ADMIN")
+
                         .anyRequest().authenticated())
 
                 .formLogin(formLogin -> formLogin
                         .loginPage("/login")
                         .failureUrl("/login?error")
-                        .permitAll());
+                        .successHandler(customSuccessHandler())
+                        .permitAll())
+                .exceptionHandling(exception -> exception
+                        .accessDeniedPage("/accessDenied"));
 
         return http.build();
     }

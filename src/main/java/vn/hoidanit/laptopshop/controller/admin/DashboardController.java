@@ -11,4 +11,10 @@ public class DashboardController {
     public String getDashboard() {
         return "admin/dashboard/show";
     }
+
+    @GetMapping("/accessDenied")
+    public String getDenyPage() {
+        return "client/authentication/deny";
+    }
+
 }
