@@ -29,7 +29,7 @@
                     </button>
                     <div class="collapse navbar-collapse bg-white" id="navbarCollapse">
                         <div class="navbar-nav mx-auto">
-                            <a href="index.html" class="nav-item nav-link active">Trang chủ</a>
+                            <a href="/" class="nav-item nav-link active">Trang chủ</a>
                             <a href="shop-detail.html" class="nav-item nav-link">Sản phẩm</a>
                         </div>
                         <div class="d-flex m-3 me-0">
@@ -50,9 +50,9 @@
                                     <ul class="dropdown-menu dropdown-menu-end p-4" aria-labelledby="dropdownMenuLink">
                                         <li class="d-flex align-items-center flex-column" style="min-width: 300px;">
                                             <img style="width: 150px; height: 150px; border-radius: 50%; overflow: hidden;"
-                                                src="/images/product/1711078092373-asus-01.png" />
+                                                src="/images/avatar/${sessionScope.avatar}" />
                                             <div class="text-center my-3">
-                                                <c:out value="${pageContext.request.userPrincipal.name}" />
+                                                <c:out value="${sessionScope.fullName}" />
                                             </div>
                                         </li>
 

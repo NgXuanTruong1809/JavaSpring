@@ -9,6 +9,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.Min;
@@ -42,7 +43,18 @@ public class User {
     private Role role;
 
     @OneToMany(mappedBy = "user") // used relationship to get data -> user = name of variable in order domain
-    List<Order> orders;
+    private List<Order> orders;
+
+    @OneToOne(mappedBy = "user")
+    private Cart card;
+
+    public Cart getCard() {
+        return card;
+    }
+
+    public void setCard(Cart card) {
+        this.card = card;
+    }
 
     public long getId() {
         return id;
