@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 import vn.hoidanit.laptopshop.domain.Product;
 import vn.hoidanit.laptopshop.domain.User;
@@ -65,5 +67,14 @@ public class HomePageController {
     @GetMapping("/login")
     public String getLoginPage() {
         return "client/authentication/login";
+    }
+
+    @GetMapping("/cart")
+    public String getCartPage(Model model, HttpServletRequest request) {
+        HttpSession session = request.getSession(false);
+        Long userID = (long) session.getAttribute("id");
+        User user = this.userService.getUsersById(userID);
+        model.addAttribute("user", user);
+        return "client/cart/show";
     }
 }
