@@ -50,7 +50,7 @@ public class ProductService {
         this.productRepository.deleteById(id);
     }
 
-    public void handleAddProductToCart(long id, String email, HttpServletRequest request) {
+    public void handleAddProductToCart(long id, String email, HttpSession session) {
         User user = this.userService.getUserByEmail(email);
         if (user != null) {
             Cart cart = this.cartRepository.findByUser(user);
@@ -78,7 +78,6 @@ public class ProductService {
                 // update sum of Cart (sum distinct Product)
                 int sum = cart.getSum() + 1;
                 cart.setSum(sum);
-                HttpSession session = request.getSession(false);
                 session.setAttribute("sum", sum);
                 cart = this.cartRepository.save(cart);
             } else {
