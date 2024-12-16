@@ -9,6 +9,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -20,6 +21,7 @@ import vn.hoidanit.laptopshop.domain.User;
 import vn.hoidanit.laptopshop.domain.dto.RegisterDTO;
 import vn.hoidanit.laptopshop.service.ProductService;
 import vn.hoidanit.laptopshop.service.UserService;
+import org.springframework.web.bind.annotation.RequestBody;
 
 @Controller
 public class HomePageController {
@@ -74,7 +76,22 @@ public class HomePageController {
         HttpSession session = request.getSession(false);
         Long userID = (long) session.getAttribute("id");
         User user = this.userService.getUsersById(userID);
+        if (user.getCard() == null) {
+            model.addAttribute("cardDetailNull", "Không có sản phẩm nào");
+        } else {
+            if (user.getCard().getCartDetails().isEmpty()) {
+                model.addAttribute("cardDetailNull", "Không có sản phẩm nào");
+            }
+        }
         model.addAttribute("user", user);
         return "client/cart/show";
     }
+
+    @PostMapping("/cart/delete/{id}")
+    public String postDeleteCartDetail(@PathVariable long id, HttpServletRequest request) {
+        HttpSession session = request.getSession(false);
+        this.productService.handleRemoveCardDetails(id, session);
+        return "redirect:/cart";
+    }
+
 }

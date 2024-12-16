@@ -69,7 +69,7 @@ public class SecurityConfiguration {
                                                         // service) (default spring security block this way)
                         .permitAll()
 
-                        .requestMatchers("/", "/product/**",
+                        .requestMatchers("/", "/product/**", "/register",
                                 "/login", "/client/**", "/css/**", "/js/**", "/images/**")
                         .permitAll()
 
