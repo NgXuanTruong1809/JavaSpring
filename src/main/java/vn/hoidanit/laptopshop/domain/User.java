@@ -46,14 +46,14 @@ public class User {
     private List<Order> orders;
 
     @OneToOne(mappedBy = "user")
-    private Cart card;
+    private Cart cart;
 
-    public Cart getCard() {
-        return card;
+    public Cart getCart() {
+        return cart;
     }
 
-    public void setCard(Cart card) {
-        this.card = card;
+    public void setCart(Cart cart) {
+        this.cart = cart;
     }
 
     public long getId() {

@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
+import vn.hoidanit.laptopshop.domain.CartDetail;
 import vn.hoidanit.laptopshop.domain.Product;
 import vn.hoidanit.laptopshop.domain.User;
 import vn.hoidanit.laptopshop.domain.dto.RegisterDTO;
@@ -76,13 +77,14 @@ public class HomePageController {
         HttpSession session = request.getSession(false);
         Long userID = (long) session.getAttribute("id");
         User user = this.userService.getUsersById(userID);
-        if (user.getCard() == null) {
+        if (user.getCart() == null) {
             model.addAttribute("cardDetailNull", "Không có sản phẩm nào");
         } else {
-            if (user.getCard().getCartDetails().isEmpty()) {
+            if (user.getCart().getCartDetails().isEmpty()) {
                 model.addAttribute("cardDetailNull", "Không có sản phẩm nào");
             }
         }
+
         model.addAttribute("user", user);
         return "client/cart/show";
     }
@@ -91,6 +93,16 @@ public class HomePageController {
     public String postDeleteCartDetail(@PathVariable long id, HttpServletRequest request) {
         HttpSession session = request.getSession(false);
         this.productService.handleRemoveCardDetails(id, session);
+        return "redirect:/cart";
+    }
+
+    @PostMapping("/check-out")
+    public String postCheckOut(@RequestParam(value = "cartDetailId", required = false) List<Long> cartDetailId,
+            @RequestParam(value = "cartDetailQuantity", required = false) List<Long> cartDetailQuantity) {
+        if (cartDetailId == null) {
+            return "redirect:/cart";
+        }
+        this.productService.handleCheckOut(cartDetailId, cartDetailQuantity);
         return "redirect:/cart";
     }
 

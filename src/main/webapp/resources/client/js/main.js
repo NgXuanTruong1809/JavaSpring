@@ -159,6 +159,8 @@
             const newPrice = +price * newVal;
             priceElement.text(formatCurrency(newPrice.toFixed(2)) + " đ")
         }
+        const quantityElement = $(`input[data-cartDetail-id-check-out='${id}']`);
+        quantityElement.val(newVal);
 
         //update total cart price
         const totalPriceElement = $(`p[data-cart-total-price]`);

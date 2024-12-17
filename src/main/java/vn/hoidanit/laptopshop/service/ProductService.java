@@ -105,8 +105,17 @@ public class ProductService {
                 this.cartRepository.deleteById(curCart.getId());
                 session.setAttribute("sum", 0);
             }
-
         }
+    }
 
+    public void handleCheckOut(List<Long> id, List<Long> quantity) {
+        for (int i = 0; i < id.size(); i++) {
+            Optional<CartDetail> cartDetailOptional = this.cartDetailRepository.findById(id.get(i));
+            if (cartDetailOptional.isPresent()) {
+                CartDetail cartDetail = cartDetailOptional.get();
+                cartDetail.setQuantity(quantity.get(i));
+                this.cartDetailRepository.save(cartDetail);
+            }
+        }
     }
 }

@@ -9,7 +9,7 @@ import vn.hoidanit.laptopshop.domain.Product;
 
 @Repository
 public interface CartDetailRepository extends JpaRepository<CartDetail, Long> {
-    CartDetail save(CartDetailRepository cartDetailRepository);
+    CartDetail save(CartDetail cartDetail);
 
     CartDetail findByCartAndProduct(Cart cart, Product product);
 }

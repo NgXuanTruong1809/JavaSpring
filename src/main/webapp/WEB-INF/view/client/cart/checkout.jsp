@@ -166,7 +166,7 @@
                                     </div>
                                     <form action="/check-out" method="post">
                                         <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
-                                        <div style="display: none;">
+                                        <div>
                                             <c:forEach var="cartDetail" items="${user.cart.cartDetails}"
                                                 varStatus="status">
                                                 <input type="text" name="cartDetailId" value="${cartDetail.id}" />
