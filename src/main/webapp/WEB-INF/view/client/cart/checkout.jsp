@@ -139,50 +139,59 @@
                         <div>${cardDetailNull}
                             <hr>
                         </div>
-                        <div class="mt-5 row g-4 justify-content-start">
-                            <div class="col-12 col-md-8">
-                                <div class="bg-light rounded">
-                                    <div class="p-4">
-                                        <h1 class="display-6 mb-4">Thông tin <span class="fw-normal">Đơn Hàng</span>
-                                        </h1>
-                                        <div class="d-flex justify-content-between mb-4">
-                                            <h5 class="mb-0 me-4">Tạm tính:</h5>
-                                            <p class="mb-0" data-cart-total-price="${totalAmount}">
+                        <form action="/order" method="post">
+                            <div class="mt-5 row g-4 justify-content-between">
+                                <div class="col-12 col-md-6 my-auto">
+                                    <div class="mb-3">
+                                        <label class="form-label">Tên người nhận</label>
+                                        <input name="receiverName" type="text" class="form-control" required />
+                                    </div>
+                                    <div class="mb-3">
+                                        <label class="form-label">Địa chỉ người nhận</label>
+                                        <input name="receiverAddress" type="text" class="form-control" required />
+                                    </div>
+                                    <div class="mb-3">
+                                        <label class="form-label">Số điện thoại</label>
+                                        <input name="receiverPhone" type="text" class="form-control" required />
+                                    </div>
+                                </div>
+                                <div class="col-12 col-md-6">
+                                    <div class="bg-light rounded">
+                                        <div class="p-4">
+                                            <h1 class="display-6 mb-4">Thông tin <span class="fw-normal">Thanh
+                                                    Toán</span>
+                                            </h1>
+                                            <div class="d-flex justify-content-between">
+                                                <h5 class="mb-0 me-4">phí vận chuyển</h5>
+                                                <div class="">
+                                                    <p class="mb-0">0 đ</p>
+                                                </div>
+                                            </div>
+                                            <div class="d-flex justify-content-between mb-4">
+                                                <h5 class="mb-0 me-4">Hình thức</h5>
+                                                <p class="mb-0">
+                                                    Thanh toán khi nhận hàng (COD)
+                                                </p>
+                                            </div>
+                                        </div>
+                                        <div class="py-4 mb-4 border-top border-bottom d-flex justify-content-between">
+                                            <h5 class="mb-0 ps-4 me-4">Tổng số tiền</h5>
+                                            <input type="text" name="totalAmount"
+                                                data-cart-total-price="${totalAmount} " value="${totalAmount}"
+                                                style="display: none;">
+                                            <p class=" mb-0 pe-4" data-cart-total-price="${totalAmount}">
                                                 <fmt:formatNumber type="number" value="${totalAmount}" /> đ
                                             </p>
                                         </div>
-                                        <div class="d-flex justify-content-between">
-                                            <h5 class="mb-0 me-4">phí vận chuyển:</h5>
-                                            <div class="">
-                                                <p class="mb-0">0 đ</p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="py-4 mb-4 border-top border-bottom d-flex justify-content-between">
-                                        <h5 class="mb-0 ps-4 me-4">Tổng số tiền</h5>
-                                        <p class="mb-0 pe-4" data-cart-total-price="${totalAmount}">
-                                            <fmt:formatNumber type="number" value="${totalAmount}" /> đ
-                                        </p>
-                                    </div>
-                                    <form action="/check-out" method="post">
+
                                         <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
-                                        <div>
-                                            <c:forEach var="cartDetail" items="${user.cart.cartDetails}"
-                                                varStatus="status">
-                                                <input type="text" name="cartDetailId" value="${cartDetail.id}" />
-                                                <input type="text" name="cartDetailQuantity"
-                                                    value="${cartDetail.quantity}"
-                                                    data-cartDetail-id-check-out="${cartDetail.id}" />
-                                            </c:forEach>
-                                        </div>
                                         <button
                                             class="btn border-secondary rounded-pill px-4 py-3 text-primary text-uppercase mb-4 ms-4"
-                                            type="submit">Xác nhận đơn hàng</button>
-                                    </form>
-
+                                            type="submit">Xác nhận thanh toán</button>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
+                        </form>
                     </div>
                 </div>
                 <!-- Cart Page End -->

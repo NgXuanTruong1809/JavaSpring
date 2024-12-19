@@ -146,13 +146,13 @@
                                         <h1 class="display-6 mb-4">Thông tin <span class="fw-normal">Đơn Hàng</span>
                                         </h1>
                                         <div class="d-flex justify-content-between mb-4">
-                                            <h5 class="mb-0 me-4">Tạm tính:</h5>
+                                            <h5 class="mb-0 me-4">Tạm tính</h5>
                                             <p class="mb-0" data-cart-total-price="${totalAmount}">
                                                 <fmt:formatNumber type="number" value="${totalAmount}" /> đ
                                             </p>
                                         </div>
                                         <div class="d-flex justify-content-between">
-                                            <h5 class="mb-0 me-4">phí vận chuyển:</h5>
+                                            <h5 class="mb-0 me-4">phí vận chuyển</h5>
                                             <div class="">
                                                 <p class="mb-0">0 đ</p>
                                             </div>

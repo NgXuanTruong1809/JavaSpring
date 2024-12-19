@@ -103,7 +103,38 @@ public class HomePageController {
             return "redirect:/cart";
         }
         this.productService.handleCheckOut(cartDetailId, cartDetailQuantity);
-        return "redirect:/cart";
+        return "redirect:/check-out";
+    }
+
+    @GetMapping("/check-out")
+    public String getCheckOut(Model model, HttpServletRequest request) {
+        HttpSession session = request.getSession(false);
+        Long userID = (long) session.getAttribute("id");
+        User user = this.userService.getUsersById(userID);
+        if (user.getCart() == null) {
+            model.addAttribute("cardDetailNull", "Không có sản phẩm nào");
+        } else {
+            if (user.getCart().getCartDetails().isEmpty()) {
+                model.addAttribute("cardDetailNull", "Không có sản phẩm nào");
+            }
+        }
+
+        model.addAttribute("user", user);
+        return "client/cart/checkout";
+    }
+
+    @PostMapping("/order")
+    public String postMethodName(@RequestParam("receiverName") String receiverName,
+            @RequestParam("receiverAddress") String receiverAddress,
+            @RequestParam("receiverPhone") String receiverPhone,
+            @RequestParam("totalAmount") String totalAmount,
+            HttpServletRequest request) {
+        HttpSession session = request.getSession(false);
+        Long userID = (long) session.getAttribute("id");
+        User user = this.userService.getUsersById(userID);
+
+        this.productService.handleOrder(user, session, receiverName, receiverAddress, receiverPhone, totalAmount);
+        return "client/cart/orderSuss";
     }
 
 }
