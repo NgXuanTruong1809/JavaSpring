@@ -141,7 +141,7 @@ public class ProductService {
         order.setReceiverName(name);
         order.setReceiverAddress(address);
         order.setReceiverPhone(phone);
-        order.setStatus("0");
+        order.setStatus("PENDING");
         order.setTotalPrice(Double.parseDouble(totalAmount));
         order = this.orderRepository.save(order); // save to have order id
 
