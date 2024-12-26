@@ -39,6 +39,31 @@
                                                     <label class="form-label">ID:</label>
                                                     <form:input path="id" type="text" class="form-control" />
                                                 </div>
+                                                <div class="mb-3" style="display: none;">
+                                                    <label class="form-label">Password:</label>
+                                                    <form:input path="password" type="password" class="form-control" />
+                                                </div>
+                                                <div class="mb-3">
+                                                    <label class="form-label">Email:</label>
+                                                    <form:input path="email" type="email" class="form-control" />
+                                                </div>
+                                                <div class="mb-3">
+                                                    <label class="form-label">Phone Number:</label>
+                                                    <form:input path="phone" type="text" class="form-control" />
+                                                </div>
+                                                <div class="mb-3">
+                                                    <c:set var="errorFullName">
+                                                        <form:errors path="fullName" />
+                                                    </c:set>
+                                                    <label class="form-label">Full Name:</label>
+                                                    <form:input path="fullName" type="text"
+                                                        class="form-control ${not empty errorFullName? 'is-invalid':''}" />
+                                                    <form:errors path="fullName" cssClass="invalid-feedback" />
+                                                </div>
+                                                <div class="mb-3">
+                                                    <label class="form-label">Address:</label>
+                                                    <form:input path="address" type="text" class="form-control" />
+                                                </div>
                                                 <button type="submit" class="btn btn-warning">Update</button>
                                             </form:form>
                                         </div>
