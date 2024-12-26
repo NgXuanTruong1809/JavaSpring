@@ -11,7 +11,7 @@
                 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
                 <meta name="description" content="Hỏi Dân IT - Dự án laptopshop" />
                 <meta name="author" content="Hỏi Dân IT" />
-                <title>User Table</title>
+                <title>Order Table</title>
                 <link href="/css/styles.css" rel="stylesheet" />
                 <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
             </head>
@@ -23,23 +23,27 @@
                     <div id="layoutSidenav_content">
                         <main>
                             <div class="container-fluid px-4">
-                                <h1 class="mt-4">Manage Users</h1>
+                                <h1 class="mt-4">Manage Order</h1>
                                 <ol class="breadcrumb mb-4">
                                     <li class="breadcrumb-item"><a href="/admin">Dashboard</a></li>
-                                    <li class="breadcrumb-item active">User</li>
+                                    <li class="breadcrumb-item active">Order</li>
                                 </ol>
                                 <div>
                                     <div class="row">
                                         <div class="col-md-6 col-12 mx-auto">
-                                            <h3>Update a user</h3>
+                                            <h3>Delete Order with id = ${id}</h3>
                                             <hr />
-                                            <form:form action="/admin/user/update" method="post"
-                                                modelAttribute="newUser">
+                                            <form:form action="/admin/order/delete" method="post"
+                                                modelAttribute="newOrder">
                                                 <div class="mb-3" style="display: none;">
                                                     <label class="form-label">ID:</label>
-                                                    <form:input path="id" type="text" class="form-control" />
+                                                    <form:input path="id" type="text" class="form-control"
+                                                        value="${id}" />
                                                 </div>
-                                                <button type="submit" class="btn btn-warning">Update</button>
+                                                <div class=" alert alert-danger" role="alert">
+                                                    Are you sure to delete this order ?
+                                                </div>
+                                                <button type="submit" class="btn btn-danger">Confirm</button>
                                             </form:form>
                                         </div>
                                     </div>
