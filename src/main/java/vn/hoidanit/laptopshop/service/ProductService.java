@@ -165,4 +165,48 @@ public class ProductService {
         session.setAttribute("sum", 0);
 
     }
+
+    public long countProducts() {
+        return this.productRepository.count();
+    }
+
+    public void handleAddProductToCartFromDetail(long id, String email, HttpSession session, long quantity) {
+        User user = this.userService.getUserByEmail(email);
+        if (user != null) {
+            Cart cart = this.cartRepository.findByUser(user);
+            if (cart == null) {
+                // Create new cart
+                Cart otherCart = new Cart();
+                otherCart.setUser(user);
+                otherCart.setSum(0);
+
+                cart = this.cartRepository.save(otherCart);
+            }
+            // save cart_detail
+            Product product = this.productRepository.findById(id);
+            // check card detail Exist product
+            CartDetail cartOld = this.cartDetailRepository.findByCartAndProduct(cart, product);
+            if (cartOld == null) {
+                CartDetail cartDetail = new CartDetail();
+                cartDetail.setCart(cart);
+                cartDetail.setPrice(product.getPrice());
+                cartDetail.setProduct(product);
+                cartDetail.setQuantity(quantity);
+
+                this.cartDetailRepository.save(cartDetail);
+
+                // update sum of Cart (sum distinct Product)
+                int sum = cart.getSum() + 1;
+                cart.setSum(sum);
+                session.setAttribute("sum", sum);
+                cart = this.cartRepository.save(cart);
+            } else {
+                cartOld.setQuantity(cartOld.getQuantity() + quantity);
+                this.cartDetailRepository.save(cartOld);
+            }
+
+        }
+
+    }
+
 }

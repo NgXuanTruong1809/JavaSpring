@@ -137,4 +137,16 @@ public class HomePageController {
         return "client/cart/orderSuss";
     }
 
+    @GetMapping("/history")
+    public String getHistoryPage(Model model, HttpServletRequest request) {
+        HttpSession session = request.getSession(false);
+        Long userID = (long) session.getAttribute("id");
+        User user = this.userService.getUsersById(userID);
+        if (user.getOrders().isEmpty()) {
+            model.addAttribute("orderNull", "Không có đơn hàng nào");
+        } else {
+        }
+        model.addAttribute("user", user);
+        return "client/homepage/history";
+    }
 }

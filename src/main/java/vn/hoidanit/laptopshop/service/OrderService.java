@@ -39,4 +39,12 @@ public class OrderService {
     public Order getAOrder(long id) {
         return this.orderRepository.findById(id);
     }
+
+    public Order handleSaveOrder(Order order) {
+        return this.orderRepository.save(order);
+    }
+
+    public long countOrders() {
+        return this.orderRepository.count();
+    }
 }

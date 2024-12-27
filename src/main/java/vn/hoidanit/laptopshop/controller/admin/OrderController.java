@@ -46,6 +46,15 @@ public class OrderController {
         return "admin/order/update";
     }
 
+    @PostMapping("/admin/order/update")
+    public String postOrderUpdate(@ModelAttribute("newOrder") Order order) {
+
+        Order orderOld = this.orderService.getAOrder(order.getId());
+        orderOld.setStatus(order.getStatus());
+        this.orderService.handleSaveOrder(orderOld);
+        return "redirect:/admin/order";
+    }
+
     @GetMapping("/admin/order/delete/{id}")
     public String getOrderDeletePage(Model model, @PathVariable long id) {
         model.addAttribute("id", id);

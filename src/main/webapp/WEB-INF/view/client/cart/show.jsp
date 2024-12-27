@@ -7,7 +7,7 @@
 
             <head>
                 <meta charset="utf-8">
-                <title>${product.name} - Laptopshop</title>
+                <title>Cart - Laptopshop</title>
                 <meta content="width=device-width, initial-scale=1.0" name="viewport">
                 <meta content="" name="keywords">
                 <meta content="" name="description">
@@ -82,10 +82,11 @@
                                                 </div>
                                             </th>
                                             <td>
-                                                <p class="mb-0 mt-4">${cartDetail.product.name}</p>
+                                                <a class="d-flex mb-0 mt-4"
+                                                    href="/product/${cartDetail.product.id}">${cartDetail.product.name}</a>
                                             </td>
                                             <td>
-                                                <p class="mb-0 mt-4">
+                                                <p class=" mb-0 mt-4">
                                                     <fmt:formatNumber type="number"
                                                         value="${cartDetail.product.price}" /> đ
                                                 </p>
