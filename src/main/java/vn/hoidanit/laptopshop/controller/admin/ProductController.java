@@ -2,6 +2,9 @@ package vn.hoidanit.laptopshop.controller.admin;
 
 import java.util.List;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -33,9 +36,22 @@ public class ProductController {
     }
 
     @GetMapping("/admin/product")
-    public String getProductPage(Model model) {
-        List<Product> products = this.productService.getAllProducts();
-        model.addAttribute("products", products);
+    public String getProductPage(Model model, @RequestParam(value = "page", required = false) String page) {
+        // client: page . limit
+        // database: offset + limit
+        int pageInt = 1;
+        try {
+            pageInt = Integer.parseInt(page);
+        } catch (Exception exception) {
+
+        }
+        Pageable pageable = PageRequest.of(pageInt - 1, 5); // page index start = 0, limit
+        Page<Product> products = this.productService.getAllProducts(pageable);
+        List<Product> listProducts = products.getContent();
+        model.addAttribute("products", listProducts);
+        model.addAttribute("curPage", pageInt);
+        model.addAttribute("totalPages", products.getTotalPages());
+
         return "admin/product/show";
     }
 

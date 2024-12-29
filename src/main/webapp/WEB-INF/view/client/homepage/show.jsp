@@ -95,7 +95,8 @@
                                                                         href="/product/${product.id}">${product.name}</a>
                                                                 </h4>
                                                                 <p style="font-size: 13px;">${product.shortDesc}</p>
-                                                                <div class="d-flex flex-lg-wrap justify-content-center">
+                                                                <div
+                                                                    class="d-flex flex-lg-wrap justify-content-center flex-column">
                                                                     <p style="font-size: 15px; text-align: center; width: 100%;"
                                                                         class="text-dark fs-5 fw-bold mb-0">
                                                                         <fmt:formatNumber type="number"
