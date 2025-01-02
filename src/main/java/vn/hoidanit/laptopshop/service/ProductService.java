@@ -51,10 +51,6 @@ public class ProductService {
         return this.productRepository.findAll(specification, pageable);
     }
 
-    // public Page<Product> getAllProductsSpecification(Pageable page, String name)
-    // {
-    // return this.productRepository.findAll(ProductSpecs.nameLike(name), page);
-    // }
     // case 1
     // public Page<Product> getAllProductsSpecification(Pageable page, double min) {
     // return this.productRepository.findAll(ProductSpecs.minPrice(min), page);
